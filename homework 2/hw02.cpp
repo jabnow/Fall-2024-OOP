@@ -16,9 +16,9 @@ struct Warrior {
 
 //PARAMETERS GO HERE
 void makeWarrior(string& warriorName, int& warriorStrength, vector<Warrior>& allWarriors);
-size_t findWarrior(string& warriorName, vector<Warrior>& allWarriors);
+size_t findWarrior(const string& warriorName, const vector<Warrior>& allWarriors);
 void battle(Warrior& warrior1, Warrior& warrior2);
-void status(vector<Warrior>& allWarriors);
+void status(const vector<Warrior>& allWarriors);
 void processKeywords(ifstream& ifs, vector<Warrior>& allWarriors);
 
 int main(){
@@ -62,7 +62,7 @@ size_t findWarrior(string& warriorName, vector<Warrior>& allWarriors){
 }
 
 // two warriors face off and print the result
-void battle(const Warrior& warrior1, const Warrior& warrior2){
+void battle( Warrior& warrior1, Warrior& warrior2){
     cout << warrior1.name << " battles " << warrior2.name << endl;
     if ((warrior1.strength > 0) && (warrior2.strength > 0)){
         // if both are alive
