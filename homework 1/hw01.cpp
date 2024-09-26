@@ -1,5 +1,5 @@
 //
-// Created by Joy Wang on 9/9/2024.
+// Created by jwang on 9/9/2024.
 // This code decrypts the Caesar Cypher in encrypted.txt
 //
 
