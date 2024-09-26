@@ -1,5 +1,5 @@
 //
-// Created by Joy Wang on 9/13/2024.
+// Created by jwang on 9/13/2024.
 // THIS CODE CLASSIFIES AND SORTS HYDROCARBONS BY FORMULA
 //
 
