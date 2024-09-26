@@ -1,5 +1,5 @@
 //
-// Created by jwang on 9/11/2024.
+// Created by Joy Wang on 9/11/2024.
 // Warriors battle it out
 //
 
@@ -44,7 +44,7 @@ void makeWarrior(string& warriorName, int& warriorStrength, vector<Warrior>& all
     newWarrior.strength = warriorStrength;
     for (const Warrior& someWarrior: allWarriors){
         if (someWarrior.name == newWarrior.name){
-            cout << "not unique, cannot add" << endl;
+            cerr << "not unique, cannot add" << endl;
         }
     }
     allWarriors.push_back(newWarrior);
@@ -62,7 +62,7 @@ size_t findWarrior(string& warriorName, vector<Warrior>& allWarriors){
 }
 
 // two warriors face off and print the result
-void battle(Warrior& warrior1, Warrior& warrior2){
+void battle(const Warrior& warrior1, const Warrior& warrior2){
     cout << warrior1.name << " battles " << warrior2.name << endl;
     if ((warrior1.strength > 0) && (warrior2.strength > 0)){
         // if both are alive
@@ -96,7 +96,7 @@ void battle(Warrior& warrior1, Warrior& warrior2){
 }
 
 // prints # of warriors, names, strengths
-void status(vector<Warrior>& allWarriors){
+void status(const vector<Warrior>& allWarriors){
     cout << "There are: " << allWarriors.size() << " warriors" << endl;
     for (const Warrior& someWarrior : allWarriors){
         cout << "Warrior: " << someWarrior.name << ", strength: " << someWarrior.strength << endl;
