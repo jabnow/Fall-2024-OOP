@@ -1,5 +1,5 @@
 //
-// Created by Joy Wang on 9/23/2024.
+// Created by jwang on 9/23/2024.
 // Expanded Warrior class with weapons
 //
 
