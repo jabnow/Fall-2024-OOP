@@ -1,7 +1,7 @@
 /*
   rec03_start.cpp
   2024 Fall
-  Joy Wang
+  jwang
   Bank Accounts tutorial-style
  */
 
