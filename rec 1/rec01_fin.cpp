@@ -1,7 +1,7 @@
 /*
   rec01_start.cpp
   fall 2024
-  Joy Wang
+  jwang
 */
 #include <iostream>
 #include <fstream>
