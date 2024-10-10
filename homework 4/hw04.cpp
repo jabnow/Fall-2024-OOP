@@ -13,7 +13,7 @@ using namespace std;
 class Warrior{
     friend ostream& operator<<(ostream& os, const Warrior& fighter);
 public:
-    Warrior(const string& name, const double points) :
+    Warrior(const string& name, double points) :
     warrior_name(name),strength(points), is_hired(false){}
     const string& getName() const {return warrior_name;}
     int getStrength() const {return strength;}
