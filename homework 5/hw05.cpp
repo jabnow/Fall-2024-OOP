@@ -15,7 +15,7 @@ public:
     Warrior(const string& name, double points) :
             warrior_name(name),strength(points), is_hired(false){}
     const string& getName() const {return warrior_name;}
-    int getStrength() const {return strength;}
+    double getStrength() const {return strength;}
     bool getJob() const {return is_hired;}
     void changeJob() {is_hired = !is_hired;}
     void setStrength(double result) {strength = result;}
@@ -77,7 +77,6 @@ public:
                 }
                 army.pop_back();
                 was_fired = true;
-                // received comment: Add an extra check using getJob() for fire method to avoid looping through vector unnecessarily
             }
         }
         // if warrior not found in army
@@ -88,7 +87,6 @@ public:
         return was_fired;
     }
     // this method calculates the total strength of the army after battle
-    // pass in int for winner and loser strength due to int->double conversion
     // winner will lose a fraction of their strength, losers die
     // no return value
     void resultingStrength(double winner, double loser){
@@ -149,11 +147,16 @@ private:
 // QUESTION: the const declaration... when to use it on the pointer again??
 Warrior* find_warrior(const string& name, const vector<Warrior*>& fighters);
 Noble* find_noble(const string& name, const vector<Noble*>& noblesse);
-//void delete_ptr(vector<Noble*>& noblesse, vector<Warrior*>& fighters);
-//void delete_ptr(Noble*& noble, Warrior*& fighter);
 void clear_ptrs(vector<Noble*>& noblesse, vector<Warrior*>& fighters);
 void display_status(const vector<Noble*>& noblesse,
                     vector<Warrior*> const& fighters);
+// these functions make main() shorter
+void process_Hire(Noble* sir, Warrior* knight,
+                  const string& noble, const string& warrior);
+void process_Fire(Noble* sir, Warrior* knight,
+                  const string& noble, const string& warrior);
+void process_Battle(Noble* sir, Noble* sir2,
+                    const string& noble, const string& noble2);
 
 int main(){
     ifstream input("nobleWarriors.txt");
@@ -168,8 +171,6 @@ int main(){
     while (input >> keyword){
         // create warriors and nobles and fill up the vectors
         string noble, warrior;
-        // QUESTION: should I rely on auto int-double conversion,
-        // or just declare it double here
         double strength;
         if (keyword == "Noble"){
             input >> noble;
@@ -197,14 +198,7 @@ int main(){
             // check if not already hired (already in the method though?)
             Noble* sir = find_noble(noble, nobles);
             Warrior* knight = find_warrior(warrior, warriors);
-            if(sir==nullptr){
-                cout << "Noble: " << noble << " not found, cannot hire\n";
-            } else if (knight==nullptr){
-                cout << "Attempting to hire using unknown warrior: "
-                << warrior << endl;
-            } else if (sir->getName() == noble && knight->getName()==warrior){
-                sir->hire(*knight);
-            }
+            process_Hire(sir, knight, noble, warrior);
 
         } else if (keyword == "Fire"){
             input >> noble >> warrior;
@@ -214,14 +208,7 @@ int main(){
             // right noble, right warrior, then delete_ptr
             Noble* sir = find_noble(noble, nobles);
             Warrior* knight = find_warrior(warrior, warriors);
-            if(sir==nullptr){
-                cout << "Noble: " << noble << " not found, cannot fire\n";
-            } else if (knight==nullptr) {
-                cout << "Warrior: "<<warrior<<" not found, cannot be fired\n";
-            } else if (sir->getName() == noble && knight->getName()==warrior){
-                sir->fire(*knight);
-//                delete_ptr(sir, knight);    // not necessary
-            }
+            process_Fire(sir, knight, noble, warrior);
 
         } else if (keyword == "Battle"){
             string noble2;
@@ -229,13 +216,7 @@ int main(){
             // find and check if both nobles exist in vector
             Noble* sir = find_noble(noble, nobles);
             Noble* sir2 = find_noble(noble2, nobles);
-            if (sir && sir2){
-                sir->battle(*sir2);
-            } else if (sir==nullptr) {
-                cout << "Noble: " << noble << "not found, no battle\n";
-            } else {    // else if (sir2==nullptr)
-                cout << "Noble: " << noble2 << "not found, no battle\n";
-            }
+            process_Battle(sir, sir2, noble, noble2);
 
         } else if (keyword == "Status"){
             // display_status
@@ -298,12 +279,6 @@ Noble* find_noble(const string& name, const vector<Noble*>& noblesse){
     return nullptr;
 }
 
-// delete on the heap (Noble, Warrior) fire
-//void delete_ptr(Noble*& noble, Warrior*& fighter){
-//    noble->fire(*fighter);
-//    fighter->changeJob();
-//}
-
 // clear the vectors when clear() is called
 // no return type
 void clear_ptrs(vector<Noble*>& noblesse, vector<Warrior*>& fighters){
@@ -352,3 +327,44 @@ void display_status(const vector<Noble*>& noblesse,
 }
 
 // process_keywords to make main shorter? yes.
+
+// reads the keyword "Hire" and then calls corresponding function
+// does not return
+void process_Hire(Noble* sir, Warrior* knight,
+                  const string& noble, const string& warrior){
+    if(sir==nullptr){
+        cout << "Noble: " << noble << " not found, cannot hire\n";
+    } else if (knight==nullptr){
+        cout << "Attempting to hire using unknown warrior: "
+             << warrior << endl;
+    } else if (sir->getName() == noble && knight->getName()==warrior){
+        sir->hire(*knight);
+    }
+
+}
+
+// reads the keyword "Fire" and then calls corresponding function
+// does not return
+void process_Fire(Noble* sir, Warrior* knight,
+                  const string& noble, const string& warrior){
+    if(sir==nullptr){
+        cout << "Noble: " << noble << " not found, cannot fire\n";
+    } else if (knight==nullptr) {
+        cout << "Warrior: "<<warrior<<" not found, cannot be fired\n";
+    } else if (sir->getName() == noble && knight->getName()==warrior){
+        sir->fire(*knight);
+    }
+}
+
+// reads the keyword "Fire" and then calls corresponding function
+// does not return
+void process_Battle(Noble* sir, Noble* sir2,
+                    const string& noble, const string& noble2){
+    if (sir && sir2){
+        sir->battle(*sir2);
+    } else if (sir==nullptr) {
+        cout << "Noble: " << noble << "not found, no battle\n";
+    } else {    // else if (sir2==nullptr)
+        cout << "Noble: " << noble2 << "not found, no battle\n";
+    }
+}
