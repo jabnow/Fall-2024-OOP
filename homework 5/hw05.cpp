@@ -228,6 +228,7 @@ int main(){
             warriors.clear();
         }
     }
+    input.close();    // modified
 }
 
 // all the operators
@@ -256,7 +257,7 @@ ostream& operator<<(ostream& os, const Noble& sir){
 // if not found, returns nullptr
 
 Warrior* find_warrior(const string& name, const vector<Warrior*>& fighters){
-    for(Warrior* warrior : fighters){
+    for(const Warrior* warrior : fighters){
         if (warrior->getName() == name){
             return warrior;
         }
@@ -269,7 +270,7 @@ Warrior* find_warrior(const string& name, const vector<Warrior*>& fighters){
 // finds the correct Noble in vector based on name, returns warrior
 // if not found, returns nullptr
 Noble* find_noble(const string& name, const vector<Noble*>& noblesse){
-    for (Noble* noble : noblesse){
+    for (const Noble* noble : noblesse){
         if (noble->getName() == name){
             return noble;
         }
@@ -302,7 +303,7 @@ void display_status(const vector<Noble*>& noblesse,
         cout << "NONE\n";
     } else {
         // these nobles have armies, could be dead or alive
-        for (Noble* noble : noblesse){
+        for (const Noble* noble : noblesse){
             cout << *noble;
         }
     }
