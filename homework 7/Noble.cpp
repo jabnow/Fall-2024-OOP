@@ -1,5 +1,6 @@
 //
 // Created by Joy Wang on 11/7/2024.
+// noble class, separate compilation
 //
 
 #include "Noble.h"
