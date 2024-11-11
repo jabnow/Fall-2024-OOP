@@ -144,12 +144,11 @@ private:
 };
 
 // function prototypes
-// QUESTION: the const declaration... when to use it on the pointer again??
 Warrior* find_warrior(const string& name, const vector<Warrior*>& fighters);
 Noble* find_noble(const string& name, const vector<Noble*>& noblesse);
 void clear_ptrs(vector<Noble*>& noblesse, vector<Warrior*>& fighters);
 void display_status(const vector<Noble*>& noblesse,
-                    vector<Warrior*> const& fighters);
+                    const vector<Warrior*> const& fighters);
 // these functions make main() shorter
 void process_Hire(Noble* sir, Warrior* knight,
                   const string& noble, const string& warrior);
