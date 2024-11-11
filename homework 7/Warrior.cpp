@@ -1,5 +1,6 @@
 //
 // Created by Joy Wang on 11/7/2024.
+// warrior class, separate compilation
 //
 
 #include "Warrior.h"
