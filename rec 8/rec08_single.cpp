@@ -191,7 +191,7 @@ const string &Student::getName() const {
 bool Student::addCourse(Course* theCourse) {
     // check for repeats
     for (const Course* course : courses){
-        if (course->getName() == theCourse->getName()){
+        if (course == theCourse){
             return false;
         }
     }
